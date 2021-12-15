@@ -44,7 +44,14 @@ namespace BookShopWeb.Areas.Admin.Controllers
 
             if (id is not (null or 0))
             {
-                productViewModel.Product = _unitOfWork.Product.FirstOrDefault(product => product.Id == id);
+                var product = _unitOfWork.Product.FirstOrDefault(product => product.Id == id);
+
+                if (product is null)
+                {
+                    return NotFound();
+                }
+
+                productViewModel.Product = product;
             }
 
             return View(productViewModel);
