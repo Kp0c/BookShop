@@ -14,17 +14,22 @@ public class Repository<T> : IRepository<T> where T: class
         _dbSet = db.Set<T>();
     }
 
-    public IEnumerable<T> GetAll()
+    public IEnumerable<T> GetAll(string? includeProperties = null)
     {
-        return _dbSet.ToList();
+        if (includeProperties == null) return _dbSet.ToList();
+
+        IQueryable<T> query = _dbSet;
+        query = includeProperties.Split(',', StringSplitOptions.RemoveEmptyEntries)
+            .Aggregate(query, (current, includeProp) => current.Include(includeProp));
+
+        return query.ToList();
     }
 
     public void Add(T entity)
     {
         _dbSet.Add(entity);
     }
-
-    public T? FirstOrDefault(Expression<Func<T, bool>> filter)
+    public T? FirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null)
     {
         return _dbSet.FirstOrDefault(filter);
     }

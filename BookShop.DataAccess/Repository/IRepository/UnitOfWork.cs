@@ -11,10 +11,12 @@ public class UnitOfWork : IUnitOfWork
         _db = db;
         Category = new CategoryRepository(db);
         CoverType = new CoverTypeRepository(db);
+        Product = new ProductRepository(db);
     }
 
     public ICategoryRepository Category { get; }
     public ICoverTypeRepository CoverType { get; }
+    public IProductRepository Product { get; }
 
     public void Save()
     {
