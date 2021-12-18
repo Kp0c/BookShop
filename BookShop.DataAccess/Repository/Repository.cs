@@ -31,7 +31,14 @@ public class Repository<T> : IRepository<T> where T: class
     }
     public T? FirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null)
     {
-        return _dbSet.FirstOrDefault(filter);
+        IQueryable<T> query = _dbSet;
+
+        if (includeProperties == null) return _dbSet.FirstOrDefault(filter); 
+        
+        query = includeProperties.Split(',', StringSplitOptions.RemoveEmptyEntries)
+            .Aggregate(query, (current, includeProp) => current.Include(includeProp));
+        
+        return query.FirstOrDefault(filter);
     }
 
     public void Remove(T entity)
