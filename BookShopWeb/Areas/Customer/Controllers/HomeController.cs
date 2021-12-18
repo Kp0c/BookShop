@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookShopWeb.Areas.Customer.Controllers;
 
+[Area("Customer")]
 public class HomeController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;
