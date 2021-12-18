@@ -70,7 +70,6 @@ namespace BookShopWeb.Areas.Admin.Controllers
             {
                 var wwwRootPath = _hostEnvironment.WebRootPath;
                 var fileName = Guid.NewGuid().ToString();
-                //TODO: figure out a better place
                 var uploads = Path.Combine(wwwRootPath, @"images\products");
                 var extension = Path.GetExtension(file.FileName);
 
