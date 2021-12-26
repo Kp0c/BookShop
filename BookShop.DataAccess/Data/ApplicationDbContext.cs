@@ -13,4 +13,6 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Category> Categories { get; set; } = null!;
     public DbSet<CoverType> CoverTypes { get; set; } = null!;
     public DbSet<Product> Products { get; set; } = null!;
+    public DbSet<ApplicationUser> Users { get; set; } = null!;
+    public DbSet<Company> Companies { get; set; } = null!;
 }
