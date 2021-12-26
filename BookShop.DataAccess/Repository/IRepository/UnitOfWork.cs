@@ -13,12 +13,16 @@ public class UnitOfWork : IUnitOfWork
         CoverType = new CoverTypeRepository(db);
         Product = new ProductRepository(db);
         Company = new CompanyRepository(db);
+        ShoppingCart = new ShoppingCartRepository(db);
+        ApplicationUser = new ApplicationUserRepository(db);
     }
 
     public ICategoryRepository Category { get; }
     public ICoverTypeRepository CoverType { get; }
     public IProductRepository Product { get; }
     public ICompanyRepository Company { get; }
+    public IShoppingCartRepository ShoppingCart { get; }
+    public IApplicationUserRepository ApplicationUser { get; }
 
     public void Save()
     {
