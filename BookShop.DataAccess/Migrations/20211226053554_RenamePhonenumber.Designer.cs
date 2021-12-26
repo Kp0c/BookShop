@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookShopWeb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211226053035_AddCompany")]
-    partial class AddCompany
+    [Migration("20211226053554_RenamePhonenumber")]
+    partial class RenamePhonenumber
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

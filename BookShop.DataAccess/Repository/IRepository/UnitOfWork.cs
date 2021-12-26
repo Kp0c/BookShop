@@ -12,11 +12,13 @@ public class UnitOfWork : IUnitOfWork
         Category = new CategoryRepository(db);
         CoverType = new CoverTypeRepository(db);
         Product = new ProductRepository(db);
+        Company = new CompanyRepository(db);
     }
 
     public ICategoryRepository Category { get; }
     public ICoverTypeRepository CoverType { get; }
     public IProductRepository Product { get; }
+    public ICompanyRepository Company { get; }
 
     public void Save()
     {

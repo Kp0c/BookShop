@@ -145,7 +145,7 @@ public class ProductController : Controller
         _unitOfWork.Product.Remove(product);
         _unitOfWork.Save();
 
-        TempData["success"] = "Cover Type removed successfully";
+        TempData["success"] = "Product removed successfully";
 
         return Ok();
     }
