@@ -47,15 +47,17 @@ public class CompanyController : Controller
         if (company.Id is 0)
         {
             _unitOfWork.Company.Add(company);
+
+            TempData["success"] = "Company added successfully";
         }
         else
         {
             _unitOfWork.Company.Update(company);
+
+            TempData["success"] = "Company updated successfully";
         }
         
         _unitOfWork.Save();
-
-        TempData["success"] = "Company added successfully";
 
         return RedirectToAction("Index");
     }
