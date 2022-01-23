@@ -1,5 +1,4 @@
 ﻿using BookShop.DataAccess.Data;
-using BookShop.Models;
 
 namespace BookShop.DataAccess.Repository.IRepository;
 
@@ -15,6 +14,8 @@ public class UnitOfWork : IUnitOfWork
         Company = new CompanyRepository(db);
         ShoppingCart = new ShoppingCartRepository(db);
         ApplicationUser = new ApplicationUserRepository(db);
+        OrderHeader = new OrderHeaderRepository(db);
+        OrderDetail = new OrderDetailRepository(db);
     }
 
     public ICategoryRepository Category { get; }
@@ -23,6 +24,8 @@ public class UnitOfWork : IUnitOfWork
     public ICompanyRepository Company { get; }
     public IShoppingCartRepository ShoppingCart { get; }
     public IApplicationUserRepository ApplicationUser { get; }
+    public IOrderHeaderRepository OrderHeader { get; }
+    public IOrderDetailRepository OrderDetail { get; }
 
     public void Save()
     {
