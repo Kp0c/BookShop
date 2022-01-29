@@ -8,6 +8,7 @@ using BookShop.Models;
 using BookShop.Models.ViewModels;
 using BookShop.Utility;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Stripe.Checkout;
 
@@ -209,6 +210,7 @@ public class CartController : Controller
             .GetAll(u => u.ApplicationUserId == orderHeader.ApplicationUserId).ToList();
         _unitOfWork.ShoppingCart.RemoveRange(shoppingCarts);
         _unitOfWork.Save();
+        HttpContext.Session.SetInt32("SessionShoppingCart", 0);
         return View(id);
     }
 
@@ -239,13 +241,15 @@ public class CartController : Controller
         if (cart.Count <= 1)
         {
             _unitOfWork.ShoppingCart.Remove(cart);
+            _unitOfWork.Save();
+            HttpContext.Session.SetInt32("SessionShoppingCart",
+                _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == cart.ApplicationUserId).Count());
         }
         else
         {
             _unitOfWork.ShoppingCart.DecrementCount(cart, 1);
+            _unitOfWork.Save();
         }
-
-        _unitOfWork.Save();
         
         return RedirectToAction("Index");
     }
@@ -261,6 +265,8 @@ public class CartController : Controller
         
         _unitOfWork.ShoppingCart.Remove(cart);
         _unitOfWork.Save();
+        HttpContext.Session.SetInt32("SessionShoppingCart",
+            _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == cart.ApplicationUserId).Count());
         
         return RedirectToAction("Index");
     }

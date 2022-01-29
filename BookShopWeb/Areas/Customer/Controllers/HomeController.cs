@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics;
+using System.Linq;
 using System.Security.Claims;
 using BookShop.DataAccess.Repository.IRepository;
 using BookShop.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookShopWeb.Areas.Customer.Controllers;
@@ -66,12 +68,15 @@ public class HomeController : Controller
         if (cartFromDb is not null)
         {
             _unitOfWork.ShoppingCart.IncrementCount(cartFromDb, shoppingCart.Count);
+            _unitOfWork.Save();
+            HttpContext.Session.SetInt32("SessionShoppingCart",
+                _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value).Count());
         }
         else
         {
             _unitOfWork.ShoppingCart.Add(shoppingCart);
+            _unitOfWork.Save();
         }
-        _unitOfWork.Save();
 
 
         return RedirectToAction("Index");

@@ -228,6 +228,11 @@
         </li>
     </ul>
 
+    @if (Model.OrderHeader.PaymentStatus == PaymentStatus.DelayedPayment.ToString() &&
+         Model.OrderHeader.OrderStatus == Status.Shipped.ToString())
+    {
+        <input type="submit" class="btn btn-success form-control my-1" value="Pay Now"/>
+    }
     @if (User.IsInRole(Roles.Admin.ToString()) || User.IsInRole(Roles.Employee.ToString()))
     {
         if (Model.OrderHeader.OrderStatus == Status.Approved.ToString())
@@ -238,11 +243,6 @@
         if (Model.OrderHeader.OrderStatus == Status.Processing.ToString())
         {
             <input asp-action="ShipOrder" type="submit" onclick="return ValidateInput()" class="btn btn-primary form-control my-1" value="Ship Order"/>
-        }
-        @if (Model.OrderHeader.PaymentStatus == PaymentStatus.DelayedPayment.ToString() &&
-             Model.OrderHeader.OrderStatus == Status.Shipped.ToString())
-        {
-            <input type="submit" class="btn btn-success form-control my-1" value="Pay Now"/>
         }
 
         if (Model.OrderHeader.PaymentStatus != PaymentStatus.Refunded.ToString() &&
