@@ -32,7 +32,7 @@ public class Repository<T> : IRepository<T> where T: class
     }
     public T? FirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null)
     {
-        IQueryable<T> query = _dbSet.Where(filter);
+        IQueryable<T> query = _dbSet.Where(filter).AsNoTracking();
 
         if (includeProperties == null) return _dbSet.FirstOrDefault(filter); 
         

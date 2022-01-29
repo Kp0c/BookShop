@@ -14,8 +14,7 @@ public enum Status
     Approved,
     Processing,
     Shipped,
-    Cancelled,
-    Refunded
+    Cancelled
 }
 
 public enum PaymentStatus
@@ -23,5 +22,7 @@ public enum PaymentStatus
     Pending,
     Approved,
     DelayedPayment,
-    Rejected
+    Rejected,
+    Refunded,
+    Cancelled
 }
